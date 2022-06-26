@@ -15,7 +15,7 @@ app.use(cors());
 
 const indexRouter = require("./routes/index");
 
-app.get('/test', (req, res) => res.send('Test server!'));
+// app.get('/test', (req, res) => res.send('Test server!'));
 app.use("/", indexRouter);
 
 // catch 404 and forward to error handler

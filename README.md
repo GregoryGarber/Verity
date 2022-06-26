@@ -1,2 +1,2 @@
 # Verity
-Contact List App that helps you remember their dogs name
+Contact List App that helps you remember your boss' dogs name

@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     async function testing() {
-      await axios.get('http://localhost:8082/test')
+      await axios.get('http://localhost:3001/test')
         .then(res => updateTest(res.data))
     }
     testing()

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
+import { configuration } from './config.js';
 
 function App() {
   const [test, updateTest] = useState("Poo")
+  const environment = configuration.URL;
 
   useEffect(() => {
     async function testing() {
@@ -16,6 +18,7 @@ function App() {
   return (
     <div className="App">
      {test}
+     <p>Environment: { environment }</p>
     </div>
   );
 }

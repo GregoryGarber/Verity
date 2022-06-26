@@ -8,8 +8,7 @@ objects:
     data:
       environment.js: |
         // set some defaults here
-        window.FAVOURITE_SONG = "The Locomotion"
-        window.FAVOURITE_ERA = "Mid-90s Nick Cave Kylie"
+        window.URL = 'working'
   - apiVersion: build.openshift.io/v1
     kind: BuildConfig
     metadata:

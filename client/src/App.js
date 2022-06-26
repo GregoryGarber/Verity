@@ -5,7 +5,7 @@ import { configuration } from './config.js';
 
 function App() {
   const [test, updateTest] = useState("Poo")
-  const environment = configuration.URL;
+  const environment = configuration.url;
 
   useEffect(() => {
     async function testing() {

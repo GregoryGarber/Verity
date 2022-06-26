@@ -6,12 +6,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  response.set('Access-Control-Allow-Origin', '*');
   res.send({msg: "Hello"}).status(200);
 });
 
 router.get("/test", function(req, res, next) {
-    res.set('Access-Control-Allow-Origin', '*');
     res.send({msg: "test"}).status(200);
   });
 

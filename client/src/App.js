@@ -8,9 +8,10 @@ function App() {
   const environment = configuration.url;
   console.log(configuration)
 
+
   useEffect(() => {
     async function testing() {
-      await axios.get(environment + '/test')
+      await axios.get(environment + '/test', {mode:'cors'})
         .then(res => updateTest(res.data.msg))
     }
     testing()

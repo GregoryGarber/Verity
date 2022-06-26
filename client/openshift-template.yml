@@ -8,7 +8,7 @@ objects:
     data:
       environment.js: |
         // set some defaults here
-        window.URL = "https://verity-gregorygarber-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com"
+        window.URL = "https://server-verity-gregorygarber-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com"
   - apiVersion: build.openshift.io/v1
     kind: BuildConfig
     metadata:

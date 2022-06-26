@@ -8,7 +8,7 @@ objects:
     data:
       environment.js: |
         // set some defaults here
-        window.URL = http://$(oc get route verity | awk 'NR>1 {print $2}')
+        window.URL = "http://$(oc get route verity | awk 'NR>1 {print $2}')"
   - apiVersion: build.openshift.io/v1
     kind: BuildConfig
     metadata:

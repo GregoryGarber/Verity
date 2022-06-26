@@ -10,8 +10,8 @@ function App() {
 
   useEffect(() => {
     async function testing() {
-      await axios.get('http://localhost:3001/test')
-        .then(res => updateTest(res.data))
+      await axios.get(environment + '/test')
+        .then(res => updateTest(res.data.msg))
     }
     testing()
   }, [])

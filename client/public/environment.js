@@ -1,1 +1,1 @@
-window.URL = 'poop'
+window.URL = 'http://localhost:3001'

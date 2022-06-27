@@ -1,3 +1,5 @@
+//if there are changes to os template then do -- oc process -f openshift-template.yml | oc apply -f -
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
@@ -21,6 +23,7 @@ function App() {
     <div className="App">
      {test}
      <p>Environment: { environment }</p>
+     ligma
     </div>
   );
 }

@@ -23,7 +23,7 @@ function App() {
     <div className="App">
      {test}
      <p>Environment: { environment }</p>
-     ligma
+     ligma2
     </div>
   );
 }

@@ -3,11 +3,16 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
+const { MongoClient } = require("mongodb");
+
+const MONGO_DB = require("../config/db").getMongoDB();
+const MONGO_COLLECTION = require("../config/db").getMongoCollection();
+const uri = require("../config/db").getMongoConnectionString();
+console.log(`Connecting to client with url: ${uri}`);
+
+const client = new MongoClient(uri);
 
 const Test = require('../models/test');
-
-
-
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -18,10 +23,31 @@ router.get("/test", function(req, res, next) {
     res.send({msg: "test69"}).status(200);
   });
 
-router.post('/test2', function(req, res) {
-  Test.create(res.body)
-    .then(tst => res.send('working hopefully'))
+router.post('/test2', async (req, res) => {
+  await client.connect();
+  const db = await client.db(MONGO_DB);
+  const collection = await db.collection(MONGO_COLLECTION);
+  const result = await collection.insertOne(req.body);
+  res.send('working hopefully')
 })
+
+router.get("/health", async (req, res) => {
+  let dbStatus = false;
+  console.log("Testing database connection");
+  await client.connect().then(() => {
+    console.log("Connected");
+    dbStatus = true;
+  }).catch(e => {
+    console.log("Failed to connect");
+    console.log(e);
+    dbStatus = false;
+  });
+  console.log(`Database status is ${dbStatus}`);
+  res.send({
+    server: true,
+    database: dbStatus
+  }).status(200);
+});
 
 module.exports = router;
 

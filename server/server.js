@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 // Connect to the Database
-connectDB();
+//connectDB();
 
 const indexRouter = require("./routes/index");
 

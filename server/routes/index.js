@@ -15,7 +15,7 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/test", function(req, res, next) {
-    res.send({msg: "test2"}).status(200);
+    res.send({msg: "test69"}).status(200);
   });
 
 router.post('/test2', function(req, res) {
@@ -24,3 +24,4 @@ router.post('/test2', function(req, res) {
 })
 
 module.exports = router;
+

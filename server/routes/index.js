@@ -1,5 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const { json } = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const { check, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
+
+const Test = require('../models/test');
 
 
 
@@ -12,5 +17,10 @@ router.get("/", function(req, res, next) {
 router.get("/test", function(req, res, next) {
     res.send({msg: "test2"}).status(200);
   });
+
+router.post('/test2', function(req, res) {
+  Test.create(res.body)
+    .then(tst => res.send('working hopefully'))
+})
 
 module.exports = router;

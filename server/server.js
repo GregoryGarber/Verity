@@ -1,4 +1,5 @@
 const createError = require("http-errors");
+const connectDB = require('./config/db');
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -13,7 +14,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
+// Connect to the Database
+connectDB();
+
 const indexRouter = require("./routes/index");
+
+
+
+
 
 // app.get('/test', (req, res) => res.send('Test server!'));
 app.use("/", indexRouter);

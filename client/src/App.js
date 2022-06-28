@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
 import { configuration } from './config.js';
+// import { env } from 'process';
 
 function App() {
   const [test, updateTest] = useState("Poo")
@@ -13,11 +14,14 @@ function App() {
 
   useEffect(() => {
     async function testing() {
-      await axios.get(environment + '/test', {mode:'cors'})
-        .then(res => updateTest(res.data.msg))
+      // await axios.get(environment + '/test', {mode:'cors'})
+      //   .then(res => updateTest(res.data.msg))
+
+      await axios.post(environment + '/test2', {"test1": 2})
+        .then(res => console.log(res))
     }
     testing()
-  }, [])
+  }, [environment])
 
   return (
     <div className="App">

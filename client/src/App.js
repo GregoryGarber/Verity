@@ -14,8 +14,10 @@ function App() {
 
   useEffect(() => {
     async function testing() {
-      // await axios.get(environment + '/test', {mode:'cors'})
-      //   .then(res => updateTest(res.data.msg))
+      // await axios.get(environment + '/health', {mode:'cors'})
+      //   .then(res => console.log(res))
+      //   // .then(res => updateTest(res))
+    
 
       await axios.post(environment + '/test2', {"test1": 2})
         .then(res => console.log(res))

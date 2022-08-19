@@ -19,7 +19,9 @@ function App() {
       //   // .then(res => updateTest(res))
     
 
-      await axios.post(environment + '/test2', {"test1": 2})
+      // await axios.post(environment + '/createContact', {"test1": 2})
+      //   .then(res => console.log(res))
+      await axios.delete(environment + "/deleteContact?ID=62fd599084d38020725c2ca5")
         .then(res => console.log(res))
     }
     testing()

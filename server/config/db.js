@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { MONGO_URI } = process.env;
-const MONGO_DB = "test";
+const MONGO_DB = "DB";
 const MONGO_COLLECTION = "tests";
 
 function getMongoConnectionString() {
@@ -13,8 +13,13 @@ function getMongoDB() {
   return MONGO_DB;
 }
 
-function getMongoCollection() {
-  return MONGO_COLLECTION;
+function getMongoCollection(type) {
+    if (type === 'Contacts') {
+        return 'Contacts'
+    } else if (type === 'Users') {
+      return 'Users'
+    }
+        return MONGO_COLLECTION;
 }
 
 module.exports = {

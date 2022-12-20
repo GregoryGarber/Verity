@@ -12,16 +12,21 @@ import bcrypt from "bcrypt";
 //TODO comments
 async function signup(req: Request, res: Response) {
   try {
+    console.log("signing up");
     const user = new User({
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
     });
 
     await user.save();
-
-    const token = jwt.sign({ userId: user._id }, process.env.secret as string, {
+    console.log("user saved");
+    console.log(user._id);
+    console.log(process.env.SECRET);
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET as string, {
       expiresIn: 86400, // 24 hours
     });
+
+    console.log("token created");
 
     res.status(200).send({
       message: "Successfully created user",
@@ -32,6 +37,7 @@ async function signup(req: Request, res: Response) {
       },
     });
   } catch (err) {
+    console.log("ERROR");
     res.status(500).send({ message: err });
   }
 }

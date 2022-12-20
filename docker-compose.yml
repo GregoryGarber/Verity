@@ -22,3 +22,10 @@ services:
       - "4007:4007"
     depends_on:
       - kafka
+
+  contact:
+    build: ./contacts
+    ports:
+      - "4006:4006"
+    depends_on:
+      - kafka

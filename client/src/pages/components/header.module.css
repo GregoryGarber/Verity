@@ -1,0 +1,12 @@
+.header {
+  width: 98%;
+  height: 100%;
+  border-bottom: 1px solid #236978;
+  z-index: 1;
+}
+
+.title {
+  font-size: 2.8em;
+  font-family: "IM Fell French Canon", serif;
+  color: #6cc6da;
+}

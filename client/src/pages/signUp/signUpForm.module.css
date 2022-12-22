@@ -1,0 +1,57 @@
+.signUpForm {
+  border: 1px solid black;
+  width: 100%;
+  height: auto;
+  border-radius: 2%;
+  padding: 5%;
+}
+
+.input_div {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 4em;
+  margin-top: 0;
+  font-weight: 1000;
+}
+
+.label {
+  font-size: 3em;
+}
+
+.input {
+  margin-top: 1%;
+  height: 2.8em;
+  font-size: 1.2em;
+  border: none; /* <-- This thing here */
+  border-radius: 10px;
+  background-color: #dbf2f6;
+  padding-left: 2%;
+}
+
+.options_container {
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.button_container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  height: 2em;
+  font-size: 2em;
+  width: 12em;
+  background-color: #6cc6da;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  align-self: center;
+  cursor: pointer;
+  margin-top: 3%;
+}

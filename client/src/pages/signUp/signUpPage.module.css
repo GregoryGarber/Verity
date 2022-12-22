@@ -1,0 +1,48 @@
+.page_container {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: center;
+  height: auto;
+  width: 100vw;
+  font-family: "IM Fell French Canon", serif;
+}
+
+.header_container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.left_triangle_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+  width: auto;
+}
+
+.right_triangle_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: 100%;
+  width: auto;
+}
+
+.form_container {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.catch_phrase {
+  color: #6cc6da;
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 5%;
+  margin-top: 15%;
+}

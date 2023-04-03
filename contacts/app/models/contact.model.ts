@@ -9,6 +9,7 @@ const mongooseString = {
 const businessInfo = {
   email: [String],
   phoneNumber: [String],
+  location: [String],
   company: [String],
   position: [String],
   previousConversation: [String],

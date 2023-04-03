@@ -1,0 +1,25 @@
+.section {
+  width: 100%;
+  height: auto;
+}
+
+.header {
+  width: 97%;
+  border-bottom: 1px solid #236978;
+  font-family: "IM Fell French Canon", serif;
+  color: #6cc6da;
+  margin: auto;
+  font-size: 1.5em;
+}
+
+.person {
+  font-family: "IM Fell French Canon", serif;
+  color: #6cc6da;
+  font-size: 1.3em;
+  margin: 0.3em 0 0 0.7em;
+  cursor: pointer;
+}
+
+.person:hover {
+  background-color: #cfe2e6;
+}

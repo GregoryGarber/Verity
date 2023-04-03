@@ -1,0 +1,17 @@
+.home {
+  height: auto;
+  width: 100vw;
+  display: flex;
+}
+
+.main_container {
+  width: 80%;
+}
+
+.header {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 1em;
+}

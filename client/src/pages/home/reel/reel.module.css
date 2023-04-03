@@ -1,0 +1,23 @@
+.reel {
+  width: 96%;
+  margin-left: 3em;
+  margin-top: 1em;
+}
+
+.title {
+  color: #6cc6da;
+  font-size: 2em;
+  font-family: "IM Fell French Canon", serif;
+}
+
+.card_container {
+  width: 100%;
+  display: flex;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.card_container::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,18 @@
+.contactInfo {
+  height: auto;
+  width: auto;
+  border: 1px solid #236978;
+  margin: 3em;
+  padding: 3em;
+}
+
+.name {
+  font-family: "IM Fell French Canon", serif;
+  font-size: 3em;
+  border-bottom: 1px solid black;
+}
+
+.infoContainer {
+  display: flex;
+  justify-content: space-around;
+}

@@ -1,6 +1,6 @@
 # serverless.yml
 
-service: SignIn-SignUp
+service: contacts
 
 provider:
   name: aws

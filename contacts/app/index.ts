@@ -1,7 +1,9 @@
 import express from "express";
-import dbConnect from "./db/db.js";
+// import dbConnect from "./db/db.js";
 import cors from "cors";
-import contactsRoutes from "./routes/contacts.routes.js";
+// import contactsRoutes from "./routes/contacts.routes.js";
+
+const serverless = require("serverless-http");
 
 const app = express();
 
@@ -11,17 +13,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 async function start() {
-  await dbConnect();
+  // await dbConnect();
 
   app.get("/", (req, res) => {
     res.json({ message: "Welcome to Verity." });
   });
 
-  contactsRoutes(app);
+  // contactsRoutes(app);
 
-  app.listen(4006, () => {
-    console.log("Listening on port 4006");
+  app.listen(4005, () => {
+    console.log("Listening on port 4005");
   });
 }
 
 start();
+module.exports.handler = serverless(app);

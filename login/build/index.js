@@ -40,9 +40,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var db_js_1 = __importDefault(require("./db/db.js"));
 var cors_1 = __importDefault(require("cors"));
-var signUpIn_routes_js_1 = __importDefault(require("./routes/signUpIn.routes.js"));
+var signup_routes_1 = __importDefault(require("./routes/signup.routes"));
+var signIn_routes_1 = __importDefault(require("./routes/signIn.routes"));
+var serverless = require("serverless-http");
 var app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -50,20 +51,18 @@ app.use((0, cors_1.default)());
 function start() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, db_js_1.default)()];
-                case 1:
-                    _a.sent();
-                    app.get("/", function (req, res) {
-                        res.json({ message: "Welcome to Verity." });
-                    });
-                    (0, signUpIn_routes_js_1.default)(app);
-                    app.listen(4007, function () {
-                        console.log("Listening on port 4007");
-                    });
-                    return [2 /*return*/];
-            }
+            // await dbConnect();
+            app.get("/", function (req, res) {
+                res.json({ message: "Welcome to Verity." });
+            });
+            (0, signup_routes_1.default)(app);
+            (0, signIn_routes_1.default)(app);
+            app.listen(4006, function () {
+                console.log("Listening on port 4006");
+            });
+            return [2 /*return*/];
         });
     });
 }
 start();
+module.exports.handler = serverless(app);

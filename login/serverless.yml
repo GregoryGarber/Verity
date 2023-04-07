@@ -1,0 +1,20 @@
+# serverless.yml
+
+service: my-express-application
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  region: us-east-1
+
+functions:
+  app:
+    handler: build/index.handler
+    events:
+      - http: ANY /
+      - http: "ANY {proxy+}"
+
+package:
+  exclude:
+    - .env

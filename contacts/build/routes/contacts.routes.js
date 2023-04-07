@@ -10,7 +10,7 @@ function contactsRoutes(app) {
         res.header("Access-Control-Allow-Headers", "x-access-token, Origin, Content-Type, Accept");
         next();
     });
-    app.post("/api/post", contacts_controller_js_1.default.addContact);
+    app.post("/api/post", [index_1.default.verifyToken], contacts_controller_js_1.default.addContact);
     app.delete("/api/post", [index_1.default.verifyToken]);
     app.put("/api/post", [index_1.default.verifyToken]);
     app.get("/api/post", [index_1.default.verifyToken]);

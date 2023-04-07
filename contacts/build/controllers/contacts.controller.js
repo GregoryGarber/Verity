@@ -73,37 +73,103 @@ function addContact(req, res) {
 }
 function getContacts(req, res) {
     return __awaiter(this, void 0, void 0, function () {
+        var contacts, err_2;
         return __generator(this, function (_a) {
-            try {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, Contact.find({
+                            userId: req.body.userId,
+                        })];
+                case 1:
+                    contacts = _a.sent();
+                    if (!contacts) {
+                        console.log("Failed to fetch contacts");
+                        res.status(404).send("Failed to fetch contacts");
+                    }
+                    console.log("Successfully fetched contacts");
+                    res.status(200).send({
+                        message: "Successfully fetched contacts",
+                        data: contacts,
+                    });
+                    return [3 /*break*/, 3];
+                case 2:
+                    err_2 = _a.sent();
+                    res.status(500).send(err_2);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
-            catch (err) {
-                res.status(500).send(err);
-            }
-            return [2 /*return*/];
         });
     });
 }
 function updateContact(req, res) {
     return __awaiter(this, void 0, void 0, function () {
+        var id, contact, err_3;
         return __generator(this, function (_a) {
-            try {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    id = req.body._id;
+                    if (!id) {
+                        console.log("Failed to fetch contacts, ID DNE");
+                        res.status(400).send("Failed to fetch contacts, ID DNE");
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, Contact.findById(id)];
+                case 1:
+                    contact = _a.sent();
+                    if (!contact) {
+                        console.log("Failed to fetch contacts");
+                        res.status(404).send("Failed to fetch contacts");
+                        return [2 /*return*/];
+                    }
+                    contact.contactInfo = req.body.contactInfo;
+                    return [4 /*yield*/, contact.save()];
+                case 2:
+                    _a.sent();
+                    console.log("Successfully updated contact", contact);
+                    res.status(200).send({
+                        message: "Successfully updated contact",
+                        data: contact,
+                    });
+                    return [3 /*break*/, 4];
+                case 3:
+                    err_3 = _a.sent();
+                    res.status(500).send(err_3);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
-            catch (err) {
-                res.status(500).send(err);
-            }
-            return [2 /*return*/];
         });
     });
 }
 function deleteContact(req, res) {
     return __awaiter(this, void 0, void 0, function () {
+        var id, contact, err_4;
         return __generator(this, function (_a) {
-            try {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    id = req.body._id;
+                    if (!id) {
+                        console.log("Failed to fetch contacts, ID DNE");
+                        res.status(400).send("Failed to fetch contacts, ID DNE");
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, Contact.findByIdAndDelete(id)];
+                case 1:
+                    contact = _a.sent();
+                    console.log("Successfully deleted contact", contact);
+                    res.status(200).send({
+                        message: "Successfully deleted contact",
+                        data: contact,
+                    });
+                    return [3 /*break*/, 3];
+                case 2:
+                    err_4 = _a.sent();
+                    res.status(500).send(err_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
-            catch (err) {
-                res.status(500).send(err);
-            }
-            return [2 /*return*/];
         });
     });
 }

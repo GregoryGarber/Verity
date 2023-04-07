@@ -58,3 +58,24 @@ var contactSchema = new Schema({
 });
 var Contact = model("Contact", contactSchema);
 exports.default = Contact;
+// const fake = {
+//   userId: "",
+//   contactInfo: {
+//     firstName: "Dave",
+//     lastName: "Chapelle",
+//     businessInfo: {
+//       email: [],
+//       phoneNumber: [],
+//       company: [],
+//       position: [],
+//       previousConversation: [],
+//       additionalSection: [],
+//     },
+//     personalInfo: {
+//       family: [],
+//       hobbies: [],
+//       funFacts: [],
+//       additionalSection: [],
+//     },
+//   },
+// };

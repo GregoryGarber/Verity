@@ -1,7 +1,7 @@
-import controller from "../controllers/auth.controller.js";
 import { Express, NextFunction, Request, Response } from "express";
+import controller from "../controllers/index.controller";
 
-function signUpInRoutes(app: Express) {
+function signUpRoutes(app: Express) {
   app.use(function (req: Request, res: Response, next: NextFunction) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -10,9 +10,8 @@ function signUpInRoutes(app: Express) {
     next();
   });
 
-  app.post("/api/auth/signup", controller.signup);
-
-  app.post("/api/auth/signIn", controller.signIn);
+  app.post("/api/signUp", controller.signUpController.signUp);
+  app.post("/api/confirmSignUp", controller.signUpController.confirmSignUp);
 }
 
-export default signUpInRoutes;
+export default signUpRoutes;

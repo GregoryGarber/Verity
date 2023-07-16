@@ -16,7 +16,7 @@ async function start() {
   // await dbConnect();
 
   app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Verity." });
+    res.json({ message: "Welcome to Verity: Login" });
   });
 
   signUpRoutes(app);

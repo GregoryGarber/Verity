@@ -1,10 +1,7 @@
-import mongoose from "mongoose";
-mongoose.Promise = global.Promise;
-import Contact from "./contact.model.js";
+import contactSchema from "./contact.model";
 
 const db = {
-  mongoose: mongoose,
-  contact: Contact,
+  contactSchema: contactSchema,
 };
 
 export default db;

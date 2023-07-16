@@ -1,5 +1,4 @@
-import controller from "../controllers/contacts.controller.js";
-import authJwt from "../middlewares/index";
+import contactController from "../controllers/contacts.controller";
 import { Express, NextFunction, Request, Response } from "express";
 
 function contactsRoutes(app: Express) {
@@ -11,13 +10,9 @@ function contactsRoutes(app: Express) {
     next();
   });
 
-  app.post("/api/post", [authJwt.verifyToken], controller.addContact);
+  app.post("/api/addContact", contactController.addContact);
 
-  app.delete("/api/post", [authJwt.verifyToken]);
-
-  app.put("/api/post", [authJwt.verifyToken]);
-
-  app.get("/api/post", [authJwt.verifyToken]);
+  app.put("/api/updateContact", contactController.updateContact);
 }
 
 export default contactsRoutes;

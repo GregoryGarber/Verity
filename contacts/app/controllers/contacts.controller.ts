@@ -1,104 +1,102 @@
-//TODO general explanation
-import db from "../models/index.js";
+import db from "../models";
 import { Request, Response } from "express";
+import dotenv from "dotenv";
+import { v4 as uuidv4 } from "uuid";
 
-const Contact = db.contact;
+import {
+  DynamoDBClient,
+  GetItemCommand,
+  PutItemCommand,
+} from "@aws-sdk/client-dynamodb";
+import { marshall } from "@aws-sdk/util-dynamodb";
+
+dotenv.config();
+
+const dbClient = new DynamoDBClient({ region: process.env.REGION });
+
+const contactSchema = db.contactSchema;
 
 async function addContact(req: Request, res: Response) {
-  try {
-    const contact = new Contact({
-      userId: req.body.userId,
-      contactInfo: req.body.contactInfo,
-    });
-    await contact.save();
-    console.log("Successfully created new contact");
-    res.status(200).send({
-      message: "Successfully created new contact",
-      data: contact,
-    });
-  } catch (err) {
-    res.status(500).send(err);
+  const contactInfo = req.body;
+  contactInfo.contactID = uuidv4();
+
+  const putItemParams = {
+    TableName: process.env.TABLE,
+    Item: marshall(contactInfo),
+  };
+
+  const { error, value } = contactSchema.validate(contactInfo);
+
+  if (error !== undefined) {
+    console.log(error);
+    return res.status(500).send({ message: error, custom: "Schema Error" });
   }
-}
 
-async function getContacts(req: Request, res: Response) {
-  try {
-    const contacts = await Contact.find({
-      userId: req.body.userId,
-    });
+  const putItemCommand = new PutItemCommand(putItemParams);
 
-    if (!contacts) {
-      console.log("Failed to fetch contacts");
-      res.status(404).send("Failed to fetch contacts");
+  await dbClient.send(putItemCommand, (err: { message: any }, data: any) => {
+    if (err) {
+      console.log(err);
+      return res
+        .status(500)
+        .send({ message: err.message, custom: "Dynamo Error", data: data });
     }
-
-    console.log("Successfully fetched contacts");
-    res.status(200).send({
-      message: "Successfully fetched contacts",
-      data: contacts,
-    });
-  } catch (err) {
-    res.status(500).send(err);
-  }
+    console.log("Success - item added", data);
+    return res.status(200).send({ message: "Contact Added", data: data });
+  });
 }
 
+//make sure contactidf and userid cant be changed
 async function updateContact(req: Request, res: Response) {
-  try {
-    const id = req.body._id;
+  const contactInfo = req.body;
+  const { error, value } = contactSchema.validate(contactInfo);
 
-    if (!id) {
-      console.log("Failed to fetch contacts, ID DNE");
-      res.status(400).send("Failed to fetch contacts, ID DNE");
-      return;
-    }
-
-    const contact = await Contact.findById(id);
-
-    if (!contact) {
-      console.log("Failed to fetch contacts");
-      res.status(404).send("Failed to fetch contacts");
-      return;
-    }
-
-    contact.contactInfo = req.body.contactInfo;
-    await contact.save();
-
-    console.log("Successfully updated contact", contact);
-    res.status(200).send({
-      message: "Successfully updated contact",
-      data: contact,
-    });
-  } catch (err) {
-    res.status(500).send(err);
+  if (error !== undefined) {
+    console.log(error);
+    return res.status(500).send({ message: error });
   }
+
+  let getItemParams = {
+    TableName: process.env.TABLE,
+    Key: marshall({
+      contactID: contactInfo.contactID,
+    }),
+  };
+
+  const getItemCommand = new GetItemCommand(getItemParams);
+
+  await dbClient.send(getItemCommand, (err: any, data: any) => {
+    if (err) {
+      if (err.name === "ItemNotFoundException") {
+        console.log("Item not found");
+      } else {
+        console.error(err);
+      }
+      console.log(err);
+      return res.status(500).send({ message: err.message });
+    }
+  });
+
+  const putItemParams = {
+    TableName: process.env.TABLE,
+    Item: marshall(contactInfo),
+  };
+
+  const putItemCommand = new PutItemCommand(putItemParams);
+
+  await dbClient.send(putItemCommand, (err: { message: any }, data: any) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send({ message: err.message });
+    }
+    console.log("Success - item updated", data);
+    return res.status(200).send({ message: "Contact Added", data: data });
+  });
 }
 
-async function deleteContact(req: Request, res: Response) {
-  try {
-    const id = req.body._id;
-
-    if (!id) {
-      console.log("Failed to fetch contacts, ID DNE");
-      res.status(400).send("Failed to fetch contacts, ID DNE");
-      return;
-    }
-
-    const contact = await Contact.findByIdAndDelete(id);
-    console.log("Successfully deleted contact", contact);
-    res.status(200).send({
-      message: "Successfully deleted contact",
-      data: contact,
-    });
-  } catch (err) {
-    res.status(500).send(err);
-  }
-}
-
-const controller = {
+const contactController = {
   addContact,
-  getContacts,
   updateContact,
-  deleteContact,
 };
 
-export default controller;
+export default contactController;

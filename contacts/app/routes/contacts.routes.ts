@@ -13,6 +13,10 @@ function contactsRoutes(app: Express) {
   app.post("/api/addContact", contactController.addContact);
 
   app.put("/api/updateContact", contactController.updateContact);
+
+  app.delete("/api/deleteContact", contactController.deleteContact);
+
+  app.get("/api/getAllContacts", contactController.getAllContacts);
 }
 
 export default contactsRoutes;

@@ -80,7 +80,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Joi = require("joi");
 var contactSchema = Joi.object({
     contactID: Joi.string().required(),
-    userID: Joi.string(),
+    userID: Joi.string().required(),
     name: Joi.string().required(),
     email: Joi.array().items(Joi.string()),
     // company: Joi.array().items(Joi.string()),

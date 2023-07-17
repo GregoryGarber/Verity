@@ -11,5 +11,7 @@ function contactsRoutes(app) {
     });
     app.post("/api/addContact", contacts_controller_1.default.addContact);
     app.put("/api/updateContact", contacts_controller_1.default.updateContact);
+    app.delete("/api/deleteContact", contacts_controller_1.default.deleteContact);
+    app.get("/api/getAllContacts", contacts_controller_1.default.getAllContacts);
 }
 exports.default = contactsRoutes;

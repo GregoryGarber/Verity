@@ -49,9 +49,9 @@ var dbClient = new client_dynamodb_1.DynamoDBClient({ region: process.env.REGION
 var contactSchema = models_1.default.contactSchema;
 function addContact(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var contactInfo, putItemParams, _a, error, value, putItemCommand;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var contactInfo, putItemParams, error, putItemCommand, putResult, putErr_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     contactInfo = req.body;
                     contactInfo.contactID = (0, uuid_1.v4)();
@@ -59,38 +59,37 @@ function addContact(req, res) {
                         TableName: process.env.TABLE,
                         Item: (0, util_dynamodb_1.marshall)(contactInfo),
                     };
-                    _a = contactSchema.validate(contactInfo), error = _a.error, value = _a.value;
+                    error = contactSchema.validate(contactInfo).error;
                     if (error !== undefined) {
                         console.log(error);
                         return [2 /*return*/, res.status(500).send({ message: error, custom: "Schema Error" })];
                     }
-                    putItemCommand = new client_dynamodb_1.PutItemCommand(putItemParams);
-                    return [4 /*yield*/, dbClient.send(putItemCommand, function (err, data) {
-                            if (err) {
-                                console.log(err);
-                                return res
-                                    .status(500)
-                                    .send({ message: err.message, custom: "Dynamo Error", data: data });
-                            }
-                            console.log("Success - item added", data);
-                            return res.status(200).send({ message: "Contact Added", data: data });
-                        })];
+                    _a.label = 1;
                 case 1:
-                    _b.sent();
-                    return [2 /*return*/];
+                    _a.trys.push([1, 3, , 4]);
+                    putItemCommand = new client_dynamodb_1.PutItemCommand(putItemParams);
+                    return [4 /*yield*/, dbClient.send(putItemCommand)];
+                case 2:
+                    putResult = _a.sent();
+                    console.log("Success - item updated", putResult);
+                    return [2 /*return*/, res.status(200).send({ message: "Contact Added", data: putResult })];
+                case 3:
+                    putErr_1 = _a.sent();
+                    console.log(putErr_1);
+                    return [2 /*return*/, res.status(500).send({ message: putErr_1.message })];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
-//make sure contactidf and userid cant be changed
 function updateContact(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var contactInfo, _a, error, value, getItemParams, getItemCommand, putItemParams, putItemCommand;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var contactInfo, error, getItemParams, getItemCommand, getErr_1, putItemParams, putItemCommand, putResult, putErr_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     contactInfo = req.body;
-                    _a = contactSchema.validate(contactInfo), error = _a.error, value = _a.value;
+                    error = contactSchema.validate(contactInfo).error;
                     if (error !== undefined) {
                         console.log(error);
                         return [2 /*return*/, res.status(500).send({ message: error })];
@@ -99,39 +98,124 @@ function updateContact(req, res) {
                         TableName: process.env.TABLE,
                         Key: (0, util_dynamodb_1.marshall)({
                             contactID: contactInfo.contactID,
+                            userID: contactInfo.userID,
                         }),
                     };
-                    getItemCommand = new client_dynamodb_1.GetItemCommand(getItemParams);
-                    return [4 /*yield*/, dbClient.send(getItemCommand, function (err, data) {
-                            if (err) {
-                                if (err.name === "ItemNotFoundException") {
-                                    console.log("Item not found");
-                                }
-                                else {
-                                    console.error(err);
-                                }
-                                console.log(err);
-                                return res.status(500).send({ message: err.message });
-                            }
-                        })];
+                    _a.label = 1;
                 case 1:
-                    _b.sent();
+                    _a.trys.push([1, 3, , 4]);
+                    getItemCommand = new client_dynamodb_1.GetItemCommand(getItemParams);
+                    return [4 /*yield*/, dbClient.send(getItemCommand)];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    getErr_1 = _a.sent();
+                    console.log(getErr_1);
+                    return [2 /*return*/, res.status(500).send({ message: getErr_1.message })];
+                case 4:
                     putItemParams = {
                         TableName: process.env.TABLE,
                         Item: (0, util_dynamodb_1.marshall)(contactInfo),
                     };
+                    _a.label = 5;
+                case 5:
+                    _a.trys.push([5, 7, , 8]);
                     putItemCommand = new client_dynamodb_1.PutItemCommand(putItemParams);
-                    return [4 /*yield*/, dbClient.send(putItemCommand, function (err, data) {
-                            if (err) {
-                                console.log(err);
-                                return res.status(500).send({ message: err.message });
-                            }
-                            console.log("Success - item updated", data);
-                            return res.status(200).send({ message: "Contact Added", data: data });
-                        })];
+                    return [4 /*yield*/, dbClient.send(putItemCommand)];
+                case 6:
+                    putResult = _a.sent();
+                    console.log("Success - item updated", putResult);
+                    return [2 /*return*/, res
+                            .status(200)
+                            .send({ message: "Contact Updated", data: putResult })];
+                case 7:
+                    putErr_2 = _a.sent();
+                    console.log(putErr_2);
+                    return [2 /*return*/, res.status(500).send({ message: putErr_2.message })];
+                case 8: return [2 /*return*/];
+            }
+        });
+    });
+}
+function deleteContact(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, contactID, userID, deleteItemParams, deleteItemCommand, deleteErr_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = req.body.data, contactID = _a.contactID, userID = _a.userID;
+                    if (contactID === undefined) {
+                        return [2 /*return*/, res.status(500).send({ message: "contactID is missing" })];
+                    }
+                    deleteItemParams = {
+                        TableName: process.env.TABLE,
+                        Key: (0, util_dynamodb_1.marshall)({
+                            contactID: contactID,
+                            userID: userID,
+                        }),
+                    };
+                    _b.label = 1;
+                case 1:
+                    _b.trys.push([1, 3, , 4]);
+                    deleteItemCommand = new client_dynamodb_1.DeleteItemCommand(deleteItemParams);
+                    return [4 /*yield*/, dbClient.send(deleteItemCommand)];
                 case 2:
                     _b.sent();
-                    return [2 /*return*/];
+                    console.log("Item deleted successfully");
+                    return [2 /*return*/, res.status(200).send({ message: "Item deleted successfully" })];
+                case 3:
+                    deleteErr_1 = _b.sent();
+                    console.error(deleteErr_1);
+                    return [2 /*return*/, res.status(500).send({ message: deleteErr_1.message })];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function getAllContacts(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var userID, queryParams, queryCommand, queryResult, queryErr_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    userID = req.query.userId;
+                    if (userID === undefined)
+                        return [2 /*return*/, res.status(500).send({ message: "userID missing" })];
+                    queryParams = {
+                        TableName: process.env.TABLE,
+                        KeyConditionExpression: "#uid = :id",
+                        ExpressionAttributeNames: {
+                            "#uid": "userID",
+                        },
+                        ExpressionAttributeValues: (0, util_dynamodb_1.marshall)({
+                            ":id": userID,
+                        }),
+                    };
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    queryCommand = new client_dynamodb_1.QueryCommand(queryParams);
+                    return [4 /*yield*/, dbClient.send(queryCommand)];
+                case 2:
+                    queryResult = _a.sent();
+                    if (queryResult.Items === undefined) {
+                        throw { message: "Error in queryResult: .Items undefined" };
+                    }
+                    if (queryResult.Items.length === 0) {
+                        console.log("No items found for the specified user ID");
+                        return [2 /*return*/, res
+                                .status(404)
+                                .send({ message: "No items found for the specified user ID" })];
+                    }
+                    // queryResult.Items will contain an array of items that match the specified userID
+                    console.log("Items found:", queryResult.Items);
+                    return [2 /*return*/, res.status(200).send({ items: queryResult.Items })];
+                case 3:
+                    queryErr_1 = _a.sent();
+                    console.error("Error querying items:", queryErr_1);
+                    return [2 /*return*/, res.status(500).send({ message: queryErr_1.message })];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -139,5 +223,7 @@ function updateContact(req, res) {
 var contactController = {
     addContact: addContact,
     updateContact: updateContact,
+    deleteContact: deleteContact,
+    getAllContacts: getAllContacts,
 };
 exports.default = contactController;

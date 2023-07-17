@@ -88,7 +88,7 @@ const Joi = require("joi");
 const contactSchema = Joi.object({
   contactID: Joi.string().required(),
 
-  userID: Joi.string(),
+  userID: Joi.string().required(),
 
   name: Joi.string().required(),
 

@@ -9,10 +9,10 @@ var crypto_1 = __importDefault(require("crypto"));
 dotenv_1.default.config();
 aws_sdk_1.default.config.update({
     region: process.env.REGION,
-    credentials: {
-        accessKeyId: process.env.ACCESSKEYID,
-        secretAccessKey: process.env.SECRETACCESSKEY,
-    },
+    // credentials: {
+    //   accessKeyId: process.env.ACCESSKEYID as string,
+    //   secretAccessKey: process.env.SECRETACCESSKEY as string,
+    // },
 });
 var cognitoISP = new aws_sdk_1.default.CognitoIdentityServiceProvider();
 var clientId = process.env.CLIENTID;

@@ -47,26 +47,31 @@ function verifyToken(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var token, check;
         return __generator(this, function (_a) {
-            token = req.headers.authorization;
-            if (!token) {
-                return [2 /*return*/, res.status(403).send({ message: "No token provided!" })];
-                //redirect to sign up page
-            }
-            check = jsonwebtoken_1.default.verify(token, process.env.secret);
-            if (!check) {
-                return [2 /*return*/, res.status(401).send({ message: "Unauthorized!" })];
-                //redirect to sign in page
-            }
-            else {
-                //good to go pass on
-                //@ts-ignore
-                if (check.userId === undefined) {
-                    return [2 /*return*/, res.status(401).send({ message: "UserId is needed" })];
+            try {
+                token = req.headers.authorization;
+                if (!token) {
+                    return [2 /*return*/, res.status(403).send({ message: "No token provided!" })];
+                    //redirect to sign up page
+                }
+                check = jsonwebtoken_1.default.verify(token, process.env.SECRET);
+                if (!check) {
+                    return [2 /*return*/, res.status(401).send({ message: "Unauthorized!" })];
                     //redirect to sign in page
                 }
-                //@ts-ignore
-                req.body.userId = check.userId; //attach user id to the request body
-                next();
+                else {
+                    //good to go pass on
+                    //@ts-ignore
+                    if (check.userId === undefined) {
+                        return [2 /*return*/, res.status(401).send({ message: "UserId is needed" })];
+                        //redirect to sign in page
+                    }
+                    //@ts-ignore
+                    req.body.userId = check.userId; //attach user id to the request body
+                    next();
+                }
+            }
+            catch (err) {
+                res.status(500).send(err);
             }
             return [2 /*return*/];
         });

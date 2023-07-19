@@ -12,19 +12,19 @@
 }
 
 .title {
-  font-size: 3.2em;
+  font-size: 3.2rem;
   margin-top: 0;
   font-weight: 1000;
 }
 
 .label {
-  font-size: 2.5em;
+  font-size: 2.5rem;
 }
 
 .input {
   margin-top: 1%;
-  height: 2.4em;
-  font-size: 1em;
+  height: 2.4rem;
+  font-size: 1rem;
   border: none; /* <-- This thing here */
   border-radius: 10px;
   background-color: #dbf2f6;
@@ -32,7 +32,7 @@
 }
 
 .options_container {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
@@ -44,9 +44,9 @@
 }
 
 .button {
-  height: 2em;
-  font-size: 2em;
-  width: 12em;
+  height: 3rem;
+  font-size: 2rem;
+  width: 15rem;
   background-color: #6cc6da;
   color: white;
   border-radius: 8px;

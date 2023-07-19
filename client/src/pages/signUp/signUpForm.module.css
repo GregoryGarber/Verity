@@ -12,19 +12,19 @@
 }
 
 .title {
-  font-size: 4em;
+  font-size: 3.2em;
   margin-top: 0;
   font-weight: 1000;
 }
 
 .label {
-  font-size: 3em;
+  font-size: 2.5em;
 }
 
 .input {
   margin-top: 1%;
-  height: 2.8em;
-  font-size: 1.2em;
+  height: 2.4em;
+  font-size: 1em;
   border: none; /* <-- This thing here */
   border-radius: 10px;
   background-color: #dbf2f6;

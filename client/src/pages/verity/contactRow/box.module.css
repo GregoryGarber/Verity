@@ -1,0 +1,9 @@
+.box_main {
+  min-width: 13rem;
+  max-width: 13rem;
+  min-height: 8rem;
+  max-height: 8rem;
+  background-color: #ffffff;
+  border: 1px solid #236978;
+  border-radius: 25px;
+}

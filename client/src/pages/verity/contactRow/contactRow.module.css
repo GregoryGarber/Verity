@@ -1,0 +1,18 @@
+.row {
+  display: flex;
+  gap: 1rem;
+  overflow: auto;
+  width: auto;
+  white-space: nowrap;
+  margin: 1rem;
+}
+
+.contactRow_main {
+  margin: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-family: "IM Fell French Canon", serif;
+  color: #6cc6da;
+}

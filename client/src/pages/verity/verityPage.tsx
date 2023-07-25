@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/header";
 import styles from "./verityPage.module.css";
 import Sidebar from "./sidebar/sidebar";
+import ContactRow from "./contactRow/contactRow";
 
 const VerityPage = () => {
   return (
@@ -11,8 +12,8 @@ const VerityPage = () => {
         <div className={styles.header_container}>
           <Header />
         </div>
-        <div className={styles.favorites}>Favorites</div>
-        <div className={styles.calendar}>Calender</div>
+        <ContactRow title="Favorites" />
+        <ContactRow title="Calender" />
         <div className={styles.info}>Info</div>
       </div>
     </div>

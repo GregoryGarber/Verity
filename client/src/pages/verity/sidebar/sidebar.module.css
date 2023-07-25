@@ -1,0 +1,15 @@
+.sidebar_main {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px black;
+  background-color: #f0f0f0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100vh;
+}
+
+.sidebar_object {
+  background-color: aqua;
+  min-height: 7rem;
+  border: 1px solid black;
+}

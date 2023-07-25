@@ -1,0 +1,22 @@
+.header_container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.verity_main {
+  display: flex;
+  max-width: 100vw;
+}
+
+.header_container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.right_content {
+  width: 100%;
+}

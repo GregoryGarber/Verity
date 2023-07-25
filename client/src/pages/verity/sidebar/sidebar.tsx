@@ -3,7 +3,7 @@ import styles from "./sidebar.module.css";
 import { render } from "react-dom";
 import { Resizable } from "re-resizable";
 
-const style = {
+const style1 = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -29,13 +29,54 @@ const pixelValue = parseFloat(computedFontSize);
 // Remove the temporary element from the document
 document.body.removeChild(tempElement);
 
+const ResizableElement = (
+  <Resizable
+    className={styles.sidebar_main}
+    minHeight="100vh"
+    minWidth={pixelValue}
+    maxWidth={pixelValue * 2.5}
+    onResizeStop={() => resizingthing}
+  >
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+    <div className={styles.sidebar_object}>test</div>
+  </Resizable>
+);
+
+function resizingthing() {
+  const sidebar = document.getElementsByClassName(styles.sidebar_main)[0];
+  const info = sidebar.getBoundingClientRect();
+
+  if (info.width > pixelValue * 2.5) {
+    sidebar.getAttribute("style");
+    const style = sidebar.attributes.getNamedItem("style");
+    if (style === null) return;
+    const styleValue = style.value;
+    const index1 = styleValue.indexOf(" width:");
+    const index2 = styleValue.indexOf(";", index1);
+    const newString = styleValue.replace(
+      styleValue.substring(index1, index2 + 1),
+      " width: " + pixelValue * 2.5 + "px;"
+    );
+    style.value = newString;
+  }
+}
+
 const Sidebar = () => {
   return (
     <Resizable
       className={styles.sidebar_main}
       minHeight="100vh"
       minWidth={pixelValue}
-      maxWidth={pixelValue * 4}
+      maxWidth={pixelValue * 5}
+      onResizeStop={resizingthing}
     >
       <div className={styles.sidebar_object}>test</div>
       <div className={styles.sidebar_object}>test</div>
